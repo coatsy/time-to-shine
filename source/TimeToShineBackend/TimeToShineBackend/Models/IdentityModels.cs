@@ -29,5 +29,7 @@ namespace TimeToShineBackend.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<TimeToShineBackend.Models.UserColor> UserColors { get; set; }
     }
 }
