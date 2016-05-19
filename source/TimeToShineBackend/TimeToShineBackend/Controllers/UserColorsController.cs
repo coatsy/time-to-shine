@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
@@ -11,6 +12,52 @@ namespace TimeToShineBackend.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        // Approval actions
+        // GET: UserColors/Approve
+        public async Task<ActionResult> Approve()
+        {
+            // Show only the items that haven't been approved or rejected
+            return View(await db.UserColors.Where(c => c.Approved == null).OrderByDescending(p => p.Submitted).ToListAsync());
+        }
+
+        // GET: UserColors/ApproveColor/5
+        public async Task<ActionResult> ApproveColor(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            UserColor userColor = await db.UserColors.FindAsync(id);
+            if (userColor == null)
+            {
+                return HttpNotFound();
+            }
+
+            userColor.Approved = true;
+            await db.SaveChangesAsync();
+            return RedirectToAction("Approve");
+        }
+
+        // GET: UserColors/RejectColor/5
+        public async Task<ActionResult> RejectColor(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            UserColor userColor = await db.UserColors.FindAsync(id);
+            if (userColor == null)
+            {
+                return HttpNotFound();
+            }
+
+            userColor.Approved = false;
+            await db.SaveChangesAsync();
+            return RedirectToAction("Approve");
+        }
+
+
+        // Standard actions
         // GET: UserColors
         public async Task<ActionResult> Index()
         {
