@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using TimeToShineBackend.Models;
 
@@ -47,10 +43,11 @@ namespace TimeToShineBackend.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Color,ColorName,Approved,Submitted")] UserColor userColor)
+        public async Task<ActionResult> Create([Bind(Include = "Id,ColorName,Approved,Submitted,Red,Green,Blue")] UserColor userColor)
         {
             if (ModelState.IsValid)
             {
+                userColor.Submitted = userColor.Submitted ?? DateTime.Now;
                 db.UserColors.Add(userColor);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -79,7 +76,7 @@ namespace TimeToShineBackend.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Color,ColorName,Approved,Submitted")] UserColor userColor)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,ColorName,Approved,Submitted,Red,Green,Blue")] UserColor userColor)
         {
             if (ModelState.IsValid)
             {

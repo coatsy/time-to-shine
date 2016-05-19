@@ -12,9 +12,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Color)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.ColorName)
         </th>
         <th>
@@ -23,14 +20,20 @@
         <th>
             @Html.DisplayNameFor(model => model.Submitted)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Red)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Green)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Blue)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Color)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.ColorName)
         </td>
@@ -39,6 +42,15 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Submitted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Red)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Green)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Blue)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
