@@ -90,7 +90,7 @@ namespace TimeToShineBackend.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,ColorName,Approved,Submitted,Red,Green,Blue")] UserColor userColor)
+        public async Task<ActionResult> Create([Bind(Include = "Id,ColorName,Approved,Submitted,SubmitterName,SubmitterAge,SubmitterLocation,Red,Green,Blue")] UserColor userColor)
         {
             if (ModelState.IsValid)
             {
@@ -123,7 +123,7 @@ namespace TimeToShineBackend.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,ColorName,Approved,Submitted,Red,Green,Blue")] UserColor userColor)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,ColorName,Approved,Submitted,SubmitterName,SubmitterAge,SubmitterLocation,Red,Green,Blue")] UserColor userColor)
         {
             if (ModelState.IsValid)
             {

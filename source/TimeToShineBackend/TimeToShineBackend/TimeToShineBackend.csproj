@@ -248,12 +248,12 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\UserColors\Approve.cshtml" />
     <Content Include="Views\UserColors\Create.cshtml" />
     <Content Include="Views\UserColors\Delete.cshtml" />
     <Content Include="Views\UserColors\Details.cshtml" />
     <Content Include="Views\UserColors\Edit.cshtml" />
     <Content Include="Views\UserColors\Index.cshtml" />
-    <Content Include="Views\UserColors\Approve.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

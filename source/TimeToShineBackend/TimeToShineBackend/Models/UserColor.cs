@@ -9,6 +9,9 @@ namespace TimeToShineBackend.Models
         public bool? Approved { get; set; }
         public DateTime? Submitted { get; set; }
 
+        public string SubmitterName { get; set; }
+        public int SubmitterAge { get; set; }
+        public string SubmitterLocation { get; set; }
 
         public int Red { get; set; }
         public int Green { get; set; }
