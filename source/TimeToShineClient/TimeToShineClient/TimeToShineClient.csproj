@@ -98,8 +98,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SubmitControlView.xaml.cs">
+      <DependentUpon>SubmitControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ExplainerControlView.xaml.cs">
+      <DependentUpon>ExplainerControlView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Glue\ProjectGlue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\Bool2VisConverter.cs" />
     <Compile Include="Util\ColorUtils.cs" />
     <Compile Include="View\ColorSelection\ColorSelectView.model.cs">
       <DependentUpon>ColorSelectView.xaml</DependentUpon>
@@ -148,6 +155,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\SubmitControlView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ExplainerControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

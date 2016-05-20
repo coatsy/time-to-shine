@@ -1,6 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Windows.UI;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Media;
 using TimeToShineClient.Util;
 using XamlingCore.Portable.View.ViewModel;
@@ -9,11 +13,16 @@ namespace TimeToShineClient.View.ColorSelection
 {
     public class ColorSelectViewModel : XViewModel
     {
+
         SolidColorBrush _brush = new SolidColorBrush(Colors.White);
 
-        private float _chaseColor = 0;
+        private Visibility _attractVisible;
+        private bool _attractRunning;
 
-        private bool _isAttract;
+
+        private bool _colorSelectRunning;
+
+        private float _chaseColor = 0;
 
         public override void OnInitialise()
         {
@@ -21,18 +30,34 @@ namespace TimeToShineClient.View.ColorSelection
             StartAttract();
         }
 
+        public void StartColorSelect()
+        {
+            if (ColorSelectRunning)
+            {
+                return;
+            }
+            StopAttract();
+            ColorSelectRunning = true;
+        }
+
+        public void StopColorSelect()
+        {
+            ColorSelectRunning = false;
+        }
+
         public void StartAttract()
         {
-            _isAttract = true;
+            StopColorSelect();
+            AttractRunning = true;
             _chase();
         }
 
         async void _chase()
         {
-            while (_isAttract)
+            while (AttractRunning)
             {
                 await Task.Delay(20);
-                _chaseColor ++;
+                _chaseColor++;
                 var h = ColorUtils.FromHsv(_chaseColor, 1f, 1f);
                 Brush = new SolidColorBrush(h);
             }
@@ -40,12 +65,12 @@ namespace TimeToShineClient.View.ColorSelection
 
         public void StopAttract()
         {
-            _isAttract = false;
+            AttractRunning = false;
         }
 
         public void SetColor(Color c)
         {
-            StopAttract();   
+            StartColorSelect();
             Brush = new SolidColorBrush(c);
         }
 
@@ -55,6 +80,26 @@ namespace TimeToShineClient.View.ColorSelection
             set
             {
                 _brush = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool AttractRunning
+        {
+            get { return _attractRunning; }
+            set
+            {
+                _attractRunning = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool ColorSelectRunning
+        {
+            get { return _colorSelectRunning; }
+            set
+            {
+                _colorSelectRunning = value;
                 OnPropertyChanged();
             }
         }

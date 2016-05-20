@@ -5,11 +5,24 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:view="using:XamlingCore.UWP.View"
+    xmlns:timeToShineClient="using:TimeToShineClient"
+    xmlns:controls="using:TimeToShineClient.Controls"
     mc:Ignorable="d">
 
     <Grid Background="{x:Bind ViewModel.Brush, Mode=OneWay}" 
           PointerPressed="UIElement_OnPointerPressed" x:Name="colorSpectrum">
        
+        <controls:ExplainerControlView
+            Visibility="{x:Bind ViewModel.AttractRunning, Converter={StaticResource Bool2VisConverter}, Mode=OneWay}" 
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center" Width="300" Height="300"  IsRunning="{x:Bind ViewModel.AttractRunning, Mode=OneWay}" />
+
+
+        <controls:SubmitControlView
+            Visibility="{x:Bind ViewModel.ColorSelectRunning, Converter={StaticResource Bool2VisConverter}, Mode=OneWay}" 
+            VerticalAlignment="Bottom" 
+            HorizontalAlignment="Right" Width="150" Height="150" Margin="25,25,25,25"  IsRunning="{x:Bind ViewModel.ColorSelectRunning, Mode=OneWay}" />
+
     </Grid>
 </view:XPage>
 
