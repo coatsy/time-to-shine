@@ -99,17 +99,33 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Glue\ProjectGlue.cs" />
-    <Compile Include="View\HomeView.model.cs">
-      <DependentUpon>HomeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\HomeView.xaml.cs">
-      <DependentUpon>HomeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\ColorUtils.cs" />
+    <Compile Include="View\ColorSelection\ColorSelectView.model.cs">
+      <DependentUpon>ColorSelectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ColorSelection\ColorSelectView.xaml.cs">
+      <DependentUpon>ColorSelectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Home\MainHomeView.model.cs">
+      <DependentUpon>MainHomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Home\MainHomeView.xaml.cs">
+      <DependentUpon>MainHomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Menu\MenuMasterView.model.cs">
+      <DependentUpon>MenuMasterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Menu\MenuMasterView.xaml.cs">
+      <DependentUpon>MenuMasterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Menu\MenuOptionViewModel.cs" />
     <Compile Include="View\RootViewModel.cs" />
+    <Compile Include="View\Root\XUWPMasterDetailView.xaml.cs">
+      <DependentUpon>XUWPMasterDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Root\XUWPMasterDetailView2.cs" />
+    <Compile Include="View\Root\XUWPMasterDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -132,19 +148,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="View\HomeView.xaml">
+    <Page Include="Styles\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="View\ColorSelection\ColorSelectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="View\Home\MainHomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Menu\MenuMasterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Root\XUWPMasterDetailView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\Home\" />
-    <Folder Include="View\Menu\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

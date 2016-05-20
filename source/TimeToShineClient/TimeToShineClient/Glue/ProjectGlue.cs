@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TimeToShineClient.View;
+using TimeToShineClient.View.Home;
 using XamlingCore.UWP.Glue;
 
 namespace TimeToShineClient.Glue
@@ -14,7 +15,7 @@ namespace TimeToShineClient.Glue
         {
             base.Init();
 
-            XUWPCoreAutoRegistration.RegisterAssembly(Builder, typeof(HomeViewModel));
+            XUWPCoreAutoRegistration.RegisterAssembly(Builder, typeof(MainHomeViewModel));
             Container = Builder.Build();
         }
     }

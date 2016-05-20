@@ -1,5 +1,9 @@
-﻿using XamlingCore.UWP.Contract;
+﻿using TimeToShineClient.View.ColorSelection;
+using TimeToShineClient.View.Home;
+using TimeToShineClient.View.Menu;
+using XamlingCore.UWP.Contract;
 using XamlingCore.UWP.Navigation.MasterDetail;
+using XUWPMasterDetailViewModel = TimeToShineClient.View.Root.XUWPMasterDetailViewModel;
 
 namespace TimeToShineClient.View
 {
@@ -11,7 +15,7 @@ namespace TimeToShineClient.View
 
         public override void OnInitialise()
         {
-            AddPackage<HomeViewModel>();
+            AddPackage<ColorSelectViewModel>();
 
             SetMaster(CreateContentModel<MenuMasterViewModel>());
 

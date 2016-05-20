@@ -12,19 +12,28 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using XamlingCore.UWP.Contract;
+using XamlingCore.UWP.View;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace TimeToShineClient.Glue
+namespace TimeToShineClient.View.Home
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class HomeView : Page
+    public sealed partial class MainHomeView : XPage, IXPage<MainHomeViewModel>
     {
-        public HomeView()
+        public MainHomeView()
         {
             this.InitializeComponent();
         }
+
+        public override void SetViewModel(object vm)
+        {
+            ViewModel = vm as MainHomeViewModel;
+        }
+
+        public MainHomeViewModel ViewModel { get; set; }
     }
 }
