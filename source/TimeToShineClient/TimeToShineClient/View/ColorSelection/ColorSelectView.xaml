@@ -7,7 +7,7 @@
     xmlns:view="using:XamlingCore.UWP.View"
     xmlns:timeToShineClient="using:TimeToShineClient"
     xmlns:controls="using:TimeToShineClient.Controls"
-    mc:Ignorable="d">
+    mc:Ignorable="d" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" d:DesignHeight="1024" d:DesignWidth="768">
 
     <Grid Background="{x:Bind ViewModel.Brush, Mode=OneWay}" 
           PointerPressed="UIElement_OnPointerPressed" x:Name="colorSpectrum">
@@ -20,8 +20,13 @@
 
         <controls:SubmitControlView
             Visibility="{x:Bind ViewModel.ColorSelectRunning, Converter={StaticResource Bool2VisConverter}, Mode=OneWay}" 
-            VerticalAlignment="Bottom" 
+            VerticalAlignment="Bottom"  StartSaveCommand="{x:Bind ViewModel.StartSaveCommand}"
             HorizontalAlignment="Right" Width="150" Height="150" Margin="25,25,25,25"  IsRunning="{x:Bind ViewModel.ColorSelectRunning, Mode=OneWay}" />
+
+        <controls:DataEntryControlView
+            Visibility="{x:Bind ViewModel.SaveRunning, Converter={StaticResource Bool2VisConverter}, Mode=OneWay}" 
+            VerticalAlignment="Center" SaveCommand="{x:Bind ViewModel.SaveCommand}"
+            HorizontalAlignment="Center" Width="500" Height="500"  IsRunning="{x:Bind ViewModel.SaveRunning, Mode=OneWay}" />
 
     </Grid>
 </view:XPage>

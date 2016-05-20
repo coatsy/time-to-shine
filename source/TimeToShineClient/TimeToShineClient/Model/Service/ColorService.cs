@@ -16,7 +16,7 @@ namespace TimeToShineClient.Model.Service
         public void PublishSampleColor(Color c)
         {
             var colour = Colour.FromColor(c);
-            colour.LightId = 1;
+            colour.LightId = 0;
             _mqttService.Publish(colour);
         }
     }

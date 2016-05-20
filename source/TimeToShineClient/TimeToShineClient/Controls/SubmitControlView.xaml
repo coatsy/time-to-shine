@@ -115,7 +115,7 @@
         </Storyboard>
     </UserControl.Resources>
 
-    <Grid Width="150" Height="150">
+    <Grid Width="150" Height="150" PointerPressed="UIElement_OnPointerPressed">
         <Ellipse x:Name="ellipse" Fill="#FFBC6BFF" RenderTransformOrigin="0.5,0.5">
             <Ellipse.RenderTransform>
                 <CompositeTransform ScaleX="0" ScaleY="0"/>

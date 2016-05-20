@@ -14,36 +14,32 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using XamlingCore.Portable.View;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace TimeToShineClient.Controls
 {
-    public sealed partial class SubmitControlView : UserControl
+    public sealed partial class DataEntryControlView : UserControl
     {
-        public ICommand StartSaveCommand { get; set; }
+        public ICommand SaveCommand { get; set; }
 
-        private bool _isRunning;
-        public SubmitControlView()
+        public DataEntryControlView()
         {
             this.InitializeComponent();
-           
         }
 
         public bool IsRunning
         {
-            get { return _isRunning; }
+            get { return false; }
             set
             {
-                _isRunning = value;
-                _toggle();
+                _toggle(value);
             }
         }
 
-        void _toggle()
+        void _toggle(bool running)
         {
-            if (_isRunning)
+            if (running)
             {
                 Start();
             }
@@ -53,33 +49,30 @@ namespace TimeToShineClient.Controls
             }
         }
 
-        public async void Start()
-        {
-            await Task.Delay(5000);
-            EnterStory.BeginTime = TimeSpan.Zero;
-            EnterStory.Begin();
 
-            while (IsRunning)
-            {
-                await Task.Delay(8000);
-                if (IsRunning)
-                {
-                    AttractSave.BeginTime = TimeSpan.Zero;
-                    AttractSave.Begin();
-                }
-            }
+        public void Start()
+        {
+            EntryStoryboard.BeginTime=TimeSpan.Zero;
+            EntryStoryboard.Begin();
+            FirstTextBox.Focus(FocusState.Programmatic);
+            //EnterStory.BeginTime = TimeSpan.Zero;
+            //EnterStory.Begin();
         }
 
         public void Stop()
         {
-            EnterStory.Stop();
+           // EnterStory.Stop();
         }
 
-
-        private void UIElement_OnPointerPressed(object sender, PointerRoutedEventArgs e)
+        private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            e.Handled = true;
-            StartSaveCommand?.Execute(null);
+            SaveCommand?.Execute(null);
+            ThanksStoryboard.BeginTime = TimeSpan.Zero;
+            ThanksStoryboard.Begin();
+            await Task.Delay(5000);
+            HideStoryboard.BeginTime = TimeSpan.Zero;
+            
+            HideStoryboard.Begin();
         }
     }
 }
