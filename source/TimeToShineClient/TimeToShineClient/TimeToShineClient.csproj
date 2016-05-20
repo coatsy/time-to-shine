@@ -105,6 +105,11 @@
       <DependentUpon>ExplainerControlView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Glue\ProjectGlue.cs" />
+    <Compile Include="Model\Contract\IMQTTService.cs" />
+    <Compile Include="Model\Service\ColorService.cs" />
+    <Compile Include="Model\Entity\Colour.cs" />
+    <Compile Include="Model\Repo\MQTTRepo.cs" />
+    <Compile Include="Model\Contract\IColorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\Bool2VisConverter.cs" />
     <Compile Include="Util\ColorUtils.cs" />

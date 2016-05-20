@@ -6,13 +6,18 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Media;
+using TimeToShineClient.Model;
+using TimeToShineClient.Model.Contract;
+using TimeToShineClient.Model.Entity;
 using TimeToShineClient.Util;
+using uPLibrary.Networking.M2Mqtt;
 using XamlingCore.Portable.View.ViewModel;
 
 namespace TimeToShineClient.View.ColorSelection
 {
     public class ColorSelectViewModel : XViewModel
     {
+        private readonly IColorService _colorService;
 
         SolidColorBrush _brush = new SolidColorBrush(Colors.White);
 
@@ -23,6 +28,13 @@ namespace TimeToShineClient.View.ColorSelection
         private bool _colorSelectRunning;
 
         private float _chaseColor = 0;
+
+       
+
+        public ColorSelectViewModel(IColorService colorService)
+        {
+            _colorService = colorService;
+        }
 
         public override void OnInitialise()
         {
@@ -72,6 +84,13 @@ namespace TimeToShineClient.View.ColorSelection
         {
             StartColorSelect();
             Brush = new SolidColorBrush(c);
+            _publish(c);
+        }
+
+
+        void _publish(Color colour)
+        {
+            _colorService.PublishSampleColor(colour);
         }
 
         public SolidColorBrush Brush
