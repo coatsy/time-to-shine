@@ -55,6 +55,8 @@ namespace TimeToShineClient.Controls
 
         public async void Start()
         {
+            ZeroOutStoryboard.BeginTime= TimeSpan.Zero;
+            ZeroOutStoryboard.Begin();
             await Task.Delay(5000);
             EnterStory.BeginTime = TimeSpan.Zero;
             EnterStory.Begin();
