@@ -8,6 +8,22 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <Rectangle x:Name="colorSpectrum"
+                   Grid.Column="1"
+                   Grid.Row="2"
+                   Margin="1,0"
+                   PointerPressed="ColorSpectrum_OnPointerPressed">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0"
+                                     EndPoint="0,1">
+                    <GradientStop Offset="0" Color="#FFFF0000"/>
+                    <GradientStop Offset="0.2" Color="#FFFFFF00"/>
+                    <GradientStop Offset="0.4" Color="#FF00FF00"/>
+                    <GradientStop Offset="0.6" Color="#FF0000FF"/>
+                    <GradientStop Offset="0.8" Color="#FFFF00FF"/>
+                    <GradientStop Offset="1" Color="#FFFF0000"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
     </Grid>
 </Page>

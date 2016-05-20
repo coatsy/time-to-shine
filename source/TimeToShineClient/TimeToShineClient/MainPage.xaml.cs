@@ -26,5 +26,41 @@ namespace TimeToShineClient
         {
             this.InitializeComponent();
         }
+
+        private void ColorSpectrum_OnPointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            this.ChangeHue(e.GetCurrentPoint(this.colorSpectrum).Position.Y);
+            this.colorSpectrum.CapturePointer(e.Pointer);
+
+            PointerEventHandler moved = null;
+            moved = (s, args) =>
+            {
+                this.ChangeHue(args.GetCurrentPoint(this.colorSpectrum).Position.Y);
+            };
+            PointerEventHandler released = null;
+            released = (s, args) =>
+            {
+                this.colorSpectrum.ReleasePointerCapture(args.Pointer);
+                this.ChangeHue(args.GetCurrentPoint(this.colorSpectrum).Position.Y);
+                this.colorSpectrum.PointerMoved -= moved;
+                this.colorSpectrum.PointerReleased -= released;
+            };
+            this.colorSpectrum.PointerMoved += moved;
+            this.colorSpectrum.PointerReleased += released;
+        }
+
+        /// <summary>
+        /// Change color hue
+        /// </summary>
+        /// <param name="y">change point</param>
+        private void ChangeHue(double y)
+        {
+            var py = Math.Max(0d, y);
+            py = Math.Min(this.colorSpectrum.ActualHeight, py);
+
+            var spectrum = Math.Round(py, MidpointRounding.AwayFromZero);
+
+            // this.ViewModel.ColorSpectrumPoint = Math.Round(py, MidpointRounding.AwayFromZero);
+        }
     }
 }
