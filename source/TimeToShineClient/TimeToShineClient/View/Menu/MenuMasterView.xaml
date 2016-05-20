@@ -7,8 +7,17 @@
     xmlns:view="using:XamlingCore.UWP.View"
     mc:Ignorable="d">
 
-    <Grid Background="Green">
-
+    <Grid Background="#FFFFA200">
+        
+        <StackPanel Margin="25,50,0,0">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="White" FontFamily="Wingdings" Text="u"  FontSize="30" Margin="0,12,0,0"></TextBlock>
+                <HyperlinkButton Content="Reset Experience" Foreground="White" FontSize="30"></HyperlinkButton>
+                
+            </StackPanel>
+        </StackPanel>
+        
+        <Image Source="/Assets/Microsoft_logo_(2012).svg.png" VerticalAlignment="Bottom" Margin="25,25,25,25"></Image>
     </Grid>
 </view:XPage>
 
