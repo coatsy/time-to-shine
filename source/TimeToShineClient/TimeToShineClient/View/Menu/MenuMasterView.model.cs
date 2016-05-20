@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using TimeToShineClient.Model.Messages;
+using XamlingCore.Portable.Messages.XamlingMessenger;
 using XamlingCore.Portable.View.ViewModel;
 using XamlingCore.Portable.View.ViewModel.Base;
 
@@ -10,6 +12,11 @@ namespace TimeToShineClient.View.Menu
         {
             _refresh();
             base.OnActivated();
+        }
+
+        public void ResetClick()
+        {
+            new ResetMessage().Send();
         }
 
         void _refresh()

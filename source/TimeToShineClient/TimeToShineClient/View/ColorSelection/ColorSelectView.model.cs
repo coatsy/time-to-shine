@@ -10,8 +10,10 @@ using Windows.UI.Xaml.Media;
 using TimeToShineClient.Model;
 using TimeToShineClient.Model.Contract;
 using TimeToShineClient.Model.Entity;
+using TimeToShineClient.Model.Messages;
 using TimeToShineClient.Util;
 using uPLibrary.Networking.M2Mqtt;
+using XamlingCore.Portable.Messages.XamlingMessenger;
 using XamlingCore.Portable.View;
 using XamlingCore.Portable.View.ViewModel;
 
@@ -45,6 +47,12 @@ namespace TimeToShineClient.View.ColorSelection
             SaveCommand = new XCommand(_onSave);
             StartSaveCommand = new XCommand(_onStartSave);
             _attractTimer();
+            this.Register<ResetMessage>(_onReset);
+        }
+
+        void _onReset()
+        {
+            StartAttract();
         }
 
         async void _attractTimer()
