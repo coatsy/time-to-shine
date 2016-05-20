@@ -1,0 +1,52 @@
+﻿@model IEnumerable<TimeToShineBackend.Models.UserColor>
+
+<meta http-equiv="refresh" content="30">
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ColorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Submitted)
+        </th>
+
+        <th>
+            APPROVE
+        </th>
+        <th>
+            REJECT
+        </th>
+
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ColorName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Submitted)
+        </td>
+
+        <td>
+            @Html.ActionLink("Approve", "ApproveColor", new { id = item.Id }) 
+
+        </td>
+        <td>
+            @Html.ActionLink("Reject", "RejectColor", new { id = item.Id }) 
+        </td>
+
+    </tr>
+}
+
+</table>
