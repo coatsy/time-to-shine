@@ -84,6 +84,7 @@ namespace TimeToShineClient.View.Root
             //Resolves the view and also sets the binding context
             //teh view that is associated with the view model will be used
             var masterAreaView = _viewResolver.Resolve(MasterViewModel);
+            masterAreaView.SetViewModel(MasterViewModel);
             MasterContent = masterAreaView;
 
             var firstPage = _packages.First();

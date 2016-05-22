@@ -11,9 +11,14 @@
         
         <StackPanel Margin="25,50,0,0">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Foreground="White" FontFamily="Wingdings" Text="u"  FontSize="30" Margin="0,12,0,0"></TextBlock>
-                <HyperlinkButton Content="Reset Experience" Foreground="White" FontSize="30" Click="{x:Bind ViewModel.ResetClick}"></HyperlinkButton>
+                <SymbolIcon Symbol="Clear" Foreground="White" Margin="0,5,0,0" ></SymbolIcon>
+                <HyperlinkButton Margin="25,0,0,0" Content="Reset Experience" Foreground="White" FontSize="30" Click="{x:Bind ViewModel.ResetClick}"></HyperlinkButton>
                 
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <SymbolIcon Symbol="Setting" Margin="0,5,0,0" Foreground="White" ></SymbolIcon>
+                <HyperlinkButton Margin="25,0,0,0" Content="Settings" Foreground="White" FontSize="30" Click="{x:Bind ViewModel.SettingsClick}"></HyperlinkButton>
+
             </StackPanel>
         </StackPanel>
         
