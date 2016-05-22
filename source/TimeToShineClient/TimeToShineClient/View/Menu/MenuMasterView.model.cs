@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using TimeToShineClient.Model.Messages;
 using XamlingCore.Portable.Messages.XamlingMessenger;
 using XamlingCore.Portable.View.ViewModel;
@@ -8,37 +11,57 @@ namespace TimeToShineClient.View.Menu
 {
     public class MenuMasterViewModel : DisplayListViewModel<MenuOptionViewModel, XViewModel>
     {
-        public override void OnActivated()
-        {
-            _refresh();
-            base.OnActivated();
-        }
-
         public void ResetClick()
         {
             new ResetMessage().Send();
         }
 
-        void _refresh()
+        public async void SettingsClick()
         {
-            //if (DataList == null)
-            //{
-            //    return;
-            //}
+            var dialog = new ContentDialog()
+            {
+                Title = "Passcode",
+                
+            };
 
-            //Items = new ObservableCollection<MenuOptionViewModel>();
+            var panel = new StackPanel();
 
-            //foreach (var item in DataList)
-            //{
-            //    var i = CreateContentModel<MenuOptionViewModel>();
+            panel.Children.Add(new TextBlock
+            {
+                Text = "Please enter the admin passcode",
+                TextWrapping = TextWrapping.Wrap,
+            });
 
-            //    i.Item = item;
-            //    i.Title = item.Title;
+            var txt = new PasswordBox();
+            panel.Children.Add(txt);
 
-            //    Items.Add(i);
-            //}
+            dialog.Content = panel;
 
-            //UpdateItemCount();
+            // Add Buttons
+            dialog.PrimaryButtonText = "OK";
+            dialog.IsPrimaryButtonEnabled = true;
+            dialog.PrimaryButtonClick += delegate
+            {
+                var t = txt.Password;
+                if (t == "1080")
+                {
+                    new SettingsMessage().Send();
+                }
+            };
+
+            dialog.SecondaryButtonText = "Cancel";
+            dialog.SecondaryButtonClick += delegate {
+                
+            };
+
+            // Show Dialog
+            var result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.None)
+            {
+               
+            }
+
+           // 
         }
     }
 }

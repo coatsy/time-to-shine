@@ -48,11 +48,18 @@ namespace TimeToShineClient.View.ColorSelection
             StartSaveCommand = new XCommand(_onStartSave);
             _attractTimer();
             this.Register<ResetMessage>(_onReset);
+            this.Register<SettingsMessage>(_onSettings);
+        }
+
+        void _onSettings()
+        {
+            
         }
 
         void _onReset()
         {
-            StartAttract();
+            Dispatcher.Invoke(StartAttract);
+            
         }
 
         async void _attractTimer()
