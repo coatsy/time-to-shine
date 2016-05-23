@@ -28,6 +28,16 @@ namespace TimeToShineClient.Model.Service
             set { _config.Write(LIGHTS, value); }
         }
 
+        public int[] LightIdArray
+        {
+            get
+            {
+                var lights = LightIds;
+                return lights == null ? new int[0] : lights.Split(',').Select(l => Convert.ToInt32(l)).ToArray();
+            }
+           
+        }
+
         public string ServiceBase
         {
             get { return _config[SERVCICE_BASE]; }

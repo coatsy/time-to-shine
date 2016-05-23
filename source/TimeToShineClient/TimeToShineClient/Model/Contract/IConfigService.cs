@@ -6,5 +6,6 @@
         string MqttBroker { get; set; }
         string MqttTopic { get; set; }
         string LightIds { get; set; }
+        int[] LightIdArray { get; }
     }
 }

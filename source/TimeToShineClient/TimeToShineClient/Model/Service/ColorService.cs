@@ -7,16 +7,18 @@ namespace TimeToShineClient.Model.Service
     public class ColorService : IColorService
     {
         private readonly IMQTTService _mqttService;
+        private readonly IConfigService _configService;
 
-        public ColorService(IMQTTService mqttService)
+        public ColorService(IMQTTService mqttService, IConfigService configService)
         {
             _mqttService = mqttService;
+            _configService = configService;
         }
 
         public void PublishSampleColor(Color c)
         {
             var colour = Colour.FromColor(c);
-            colour.LightId = 0;
+            colour.LightIds = _configService.LightIdArray;
             _mqttService.Publish(colour);
         }
     }

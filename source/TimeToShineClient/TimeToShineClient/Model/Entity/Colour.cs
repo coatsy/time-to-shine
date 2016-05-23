@@ -7,7 +7,7 @@ namespace TimeToShineClient.Model.Entity
     public class Colour
     {
         public int MsgId { get; set; }
-        public int LightId { get; set; } = 0;
+        public int[] LightIds { get; set; }
         public byte Red { get; set; } = 0;
         public byte Green { get; set; } = 0;
         public byte Blue { get; set; } = 0;
