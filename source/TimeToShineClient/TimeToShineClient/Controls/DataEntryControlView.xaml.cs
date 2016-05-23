@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using TimeToShineClient.View.ColorSelection;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -52,7 +53,6 @@ namespace TimeToShineClient.Controls
 
         public void Start()
         {
-            var dc = this.DataContext;
             VisualStateManager.GoToState(this, "EnterColourNameState", true);
             FirstTextBox.Focus(FocusState.Programmatic);
             //EnterStory.BeginTime = TimeSpan.Zero;
@@ -67,15 +67,46 @@ namespace TimeToShineClient.Controls
 
         private async void ButtonToEnterName_OnClick(object sender, RoutedEventArgs e)
         {
+            if (!_validateColor())
+            {
+                return;
+            }
             VisualStateManager.GoToState(this, "EnterYourNameState", true);
         }
 
         private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
+            if (!_validate())
+            {
+                return;
+            }
             SaveCommand?.Execute(null);
             VisualStateManager.GoToState(this, "ThanksState", true);
             await Task.Delay(6000);
             VisualStateManager.GoToState(this, "BackHomeState", true);
+        }
+
+
+        bool _validate()
+        {
+            var vm = DataContext as ColorSelectViewModel;
+            if (vm == null)
+            {
+                return false;
+            }
+
+            return vm.ValidatePersonDemo();
+        }
+
+        bool _validateColor()
+        {
+            var vm = DataContext as ColorSelectViewModel;
+            if (vm == null)
+            {
+                return false;
+            }
+
+            return vm.ValidateColorName();
         }
 
         private void Grid_OnPointerPressed(object sender, PointerRoutedEventArgs e)

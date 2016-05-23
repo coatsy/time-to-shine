@@ -83,7 +83,7 @@ namespace TimeToShineClient.View.ColorSelection
 
         void _onSettings()
         {
-           
+
 
             Dispatcher.Invoke(() =>
             {
@@ -165,6 +165,60 @@ namespace TimeToShineClient.View.ColorSelection
             StopColorSelect();
             StopAttract();
             SaveRunning = true;
+        }
+
+        public bool ValidateColorName()
+        {
+            if (string.IsNullOrWhiteSpace(ColorName))
+            {
+                _showError("You need to enter a name for your awesome new color!");
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool ValidatePersonDemo()
+        {
+            if (string.IsNullOrWhiteSpace(FirstName))
+            {
+                _showError("Hey! You have a first name right?? Enter it to continue!");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(Age))
+
+            {
+                _showError("Beep bop! Hrm - I cannot detect how old you are, can you help me out by entering your age?");
+                return false;
+            }
+
+            try
+            {
+                var intAge = Convert.ToInt32(Age);
+            }
+            catch
+            {
+                _showError("Boom! The age you entered isn't really actually an age. It's like - some other thing. Enter Real age plz!");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(Suburb))
+            {
+                _showError("We know where you live. Oh wait... no we don't. Can you please enter your suburb?");
+                return false;
+            }
+
+            return true;
+        }
+
+        async void _showError(string error)
+        {
+            var dialog = new Windows.UI.Popups.MessageDialog(error, "Oops!");
+
+            dialog.Commands.Add(new Windows.UI.Popups.UICommand("Ok") { Id = 0 });
+
+            await dialog.ShowAsync();
         }
 
         public void StopSave()

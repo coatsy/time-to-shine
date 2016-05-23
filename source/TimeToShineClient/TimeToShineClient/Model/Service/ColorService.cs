@@ -31,7 +31,15 @@ namespace TimeToShineClient.Model.Service
 
         public async void SaveColorToServer(UserColor c)
         {
-            var saveResult = await _colorsRepo.Post(c, "UserColors");
+            try
+            {
+                var saveResult = await _colorsRepo.Post(c, "UserColors");
+            }
+            catch
+            {
+
+            }
+
         }
     }
 }
