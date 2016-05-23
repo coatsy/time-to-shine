@@ -52,8 +52,8 @@ namespace TimeToShineClient.Controls
 
         public void Start()
         {
-            EntryStoryboard.BeginTime=TimeSpan.Zero;
-            EntryStoryboard.Begin();
+            var dc = this.DataContext;
+            VisualStateManager.GoToState(this, "EnterColourNameState", true);
             FirstTextBox.Focus(FocusState.Programmatic);
             //EnterStory.BeginTime = TimeSpan.Zero;
             //EnterStory.Begin();
@@ -61,18 +61,21 @@ namespace TimeToShineClient.Controls
 
         public void Stop()
         {
-           // EnterStory.Stop();
+            VisualStateManager.GoToState(this, "BeforeState", true);
+            // EnterStory.Stop();
+        }
+
+        private async void ButtonToEnterName_OnClick(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "EnterYourNameState", true);
         }
 
         private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
             SaveCommand?.Execute(null);
-            ThanksStoryboard.BeginTime = TimeSpan.Zero;
-            ThanksStoryboard.Begin();
-            await Task.Delay(5000);
-            HideStoryboard.BeginTime = TimeSpan.Zero;
-            
-            HideStoryboard.Begin();
+            VisualStateManager.GoToState(this, "ThanksState", true);
+            await Task.Delay(6000);
+            VisualStateManager.GoToState(this, "BackHomeState", true);
         }
     }
 }

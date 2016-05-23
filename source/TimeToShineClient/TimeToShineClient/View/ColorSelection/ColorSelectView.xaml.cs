@@ -54,7 +54,7 @@ namespace TimeToShineClient.View.ColorSelection
 
             var colorString = string.Format("#FF{0:X2}{1:X2}{2:X2}", h.R, h.G, h.B);
 
-            Debug.WriteLine(colorString);
+           // Debug.WriteLine(colorString);
 
             ViewModel.SetColor(h);
 

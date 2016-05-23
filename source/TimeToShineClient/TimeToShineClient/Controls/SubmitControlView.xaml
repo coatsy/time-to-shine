@@ -10,130 +10,147 @@
     d:DesignWidth="400">
 
     <UserControl.Resources>
-        <Storyboard x:Name="EnterStory">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="ellipse">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <BackEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.8" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <BackEase EasingMode="EaseIn"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="ellipse">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <BackEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.8" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <BackEase EasingMode="EaseIn"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
 
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="textBlock">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <BackEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <BackEase EasingMode="EaseIn"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="textBlock">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <BackEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <BackEase EasingMode="EaseIn"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="DragEllipse">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.8" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <BackEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="DragEllipse">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.8" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <BackEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="DragText">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6.2" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <BackEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="DragText">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6.2" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <BackEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
         <Storyboard x:Name="AttractSave">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="DragEllipse">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1.2"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1.2"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="1"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="DragEllipse">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1.2"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1.2"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="1"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-        <Storyboard x:Name="ZeroOutStoryboard">
-            <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="DragEllipse" d:IsOptimized="True"/>
-            <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="DragEllipse" d:IsOptimized="True"/>
-            <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="DragText" d:IsOptimized="True"/>
-            <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="DragText" d:IsOptimized="True"/>
-        </Storyboard>
+
     </UserControl.Resources>
 
     <Grid Width="150" Height="150" PointerPressed="UIElement_OnPointerPressed">
-        <Ellipse x:Name="ellipse" Fill="#FFBC6BFF" RenderTransformOrigin="0.5,0.5">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="SaveButtonStates">
+                <VisualState x:Name="StateOne">
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="LooksGoodElipse">
+                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <BackEase EasingMode="EaseOut"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="LooksGoodElipse">
+                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <BackEase EasingMode="EaseOut"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="LooksGoodText">
+                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <BackEase EasingMode="EaseOut"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="LooksGoodText">
+                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <BackEase EasingMode="EaseOut"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="StateTwo">
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="LooksGoodElipse">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <BackEase EasingMode="EaseIn"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="LooksGoodElipse">
+                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <BackEase EasingMode="EaseIn"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="LooksGoodText">
+                            <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <BackEase EasingMode="EaseIn"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="LooksGoodText">
+                            <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <BackEase EasingMode="EaseIn"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="DragEllipse">
+                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <BackEase EasingMode="EaseOut"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="DragEllipse">
+                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <BackEase EasingMode="EaseOut"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="DragText">
+                            <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="0"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <BackEase EasingMode="EaseOut"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="DragText">
+                            <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="0"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <BackEase EasingMode="EaseOut"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="StateNone">
+                    <VisualState.Setters>
+                        <Setter Target="LooksGoodElipse.(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Value="0"/>
+                        <Setter Target="LooksGoodElipse.(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Value="0"/>
+                        <Setter Target="LooksGoodText.(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Value="0"/>
+                        <Setter Target="LooksGoodText.(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Value="0"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Ellipse x:Name="LooksGoodElipse" Fill="#FFBC6BFF" RenderTransformOrigin="0.5,0.5">
             <Ellipse.RenderTransform>
-                <CompositeTransform ScaleX="0" ScaleY="0"/>
+                <CompositeTransform ScaleX="1" ScaleY="1"/>
             </Ellipse.RenderTransform>
         </Ellipse>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Looks Great!" VerticalAlignment="Center" Foreground="White" FontSize="22" RenderTransformOrigin="0.5,0.5">
+        <TextBlock x:Name="LooksGoodText" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Looks Great!" VerticalAlignment="Center" Foreground="White" FontSize="22" RenderTransformOrigin="0.5,0.5">
             <TextBlock.RenderTransform>
-                <CompositeTransform ScaleX="0" ScaleY="0"/>
+                <CompositeTransform ScaleX="1" ScaleY="1"/>
             </TextBlock.RenderTransform>
         </TextBlock>
 

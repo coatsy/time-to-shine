@@ -27,7 +27,7 @@
             Visibility="{x:Bind ViewModel.SaveRunning, Converter={StaticResource Bool2VisConverter}, Mode=OneWay}" 
             VerticalAlignment="Center" SaveCommand="{x:Bind ViewModel.SaveCommand}"
             HorizontalAlignment="Center" Width="500" Height="500"  IsRunning="{x:Bind ViewModel.SaveRunning, Mode=OneWay}" />
-
+        <Image Source="/Assets/colour-labs.png" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="250" Height="250"/>
     </Grid>
 </view:XPage>
 

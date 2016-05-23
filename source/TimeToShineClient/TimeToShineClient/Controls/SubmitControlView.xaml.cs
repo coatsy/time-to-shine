@@ -55,11 +55,12 @@ namespace TimeToShineClient.Controls
 
         public async void Start()
         {
-            ZeroOutStoryboard.BeginTime= TimeSpan.Zero;
-            ZeroOutStoryboard.Begin();
-            await Task.Delay(5000);
-            EnterStory.BeginTime = TimeSpan.Zero;
-            EnterStory.Begin();
+            VisualStateManager.GoToState(this, "StateNone", false);
+            await Task.Delay(2000);
+            VisualStateManager.GoToState(this, "StateOne", true);
+            
+            await Task.Delay(2000);
+            VisualStateManager.GoToState(this, "StateTwo", true);
 
             while (IsRunning)
             {
@@ -74,7 +75,7 @@ namespace TimeToShineClient.Controls
 
         public void Stop()
         {
-            EnterStory.Stop();
+            
         }
 
 

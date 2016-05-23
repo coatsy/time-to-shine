@@ -38,6 +38,7 @@ namespace TimeToShineClient.View.ColorSelection
         private string _firstName;
         private string _age;
         private string _suburb;
+        private string _colorName;
 
         int counter = 0;
 
@@ -126,6 +127,8 @@ namespace TimeToShineClient.View.ColorSelection
             FirstName = "";
             Age = "";
             Suburb = "";
+            ColorName = "";
+
             if (ColorSelectRunning)
             {
                 return;
@@ -166,6 +169,7 @@ namespace TimeToShineClient.View.ColorSelection
 
         public void SetColor(Color c)
         {
+
             _resetAttractTimer();
             StartColorSelect();
             Brush = new SolidColorBrush(c);
@@ -244,6 +248,16 @@ namespace TimeToShineClient.View.ColorSelection
             set
             {
                 _saveRunning = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string ColorName
+        {
+            get { return _colorName; }
+            set
+            {
+                _colorName = value; 
                 OnPropertyChanged();
             }
         }
