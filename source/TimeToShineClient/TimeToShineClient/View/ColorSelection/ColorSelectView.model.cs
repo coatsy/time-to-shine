@@ -22,15 +22,21 @@ namespace TimeToShineClient.View.ColorSelection
     public class ColorSelectViewModel : XViewModel
     {
         private readonly IColorService _colorService;
+        private readonly IConfigService _configService;
 
         SolidColorBrush _brush = new SolidColorBrush(Colors.White);
 
         public ICommand SaveCommand { get; set; }
         public ICommand StartSaveCommand { get; set; }
+
+        public ICommand SaveSettingsCommand { get; set; }
+        public ICommand CancelSettingsCommand { get; set; }
+
         private Visibility _attractVisible;
         private bool _attractRunning;
 
         private bool _saveRunning;
+        private bool _settingsRunning;
         private bool _colorSelectRunning;
 
         private float _chaseColor = 0;
@@ -40,27 +46,60 @@ namespace TimeToShineClient.View.ColorSelection
         private string _suburb;
         private string _colorName;
 
+        private string _broker;
+        private string _topic;
+        private string _baseUrl;
+        private string _lightIds;
+
         int counter = 0;
 
-        public ColorSelectViewModel(IColorService colorService)
+        public ColorSelectViewModel(IColorService colorService, IConfigService configService)
         {
             _colorService = colorService;
+            _configService = configService;
             SaveCommand = new XCommand(_onSave);
             StartSaveCommand = new XCommand(_onStartSave);
+            SaveSettingsCommand = new XCommand(_saveSettings);
+            CancelSettingsCommand = new XCommand(_cancelSettings);
             _attractTimer();
             this.Register<ResetMessage>(_onReset);
             this.Register<SettingsMessage>(_onSettings);
         }
 
+        void _saveSettings()
+        {
+            _configService.MqttBroker = Broker;
+            _configService.MqttTopic = Topic;
+            _configService.ServiceBase = BaseUrl;
+            _configService.LightIds = LightIds;
+
+            _cancelSettings();
+        }
+
+        void _cancelSettings()
+        {
+            SettingsRunning = false;
+        }
+
         void _onSettings()
         {
-            
+           
+
+            Dispatcher.Invoke(() =>
+            {
+                Broker = _configService.MqttBroker;
+                Topic = _configService.MqttTopic;
+                BaseUrl = _configService.ServiceBase;
+                LightIds = _configService.LightIds;
+                SettingsRunning = true;
+            });
+
         }
 
         void _onReset()
         {
             Dispatcher.Invoke(StartAttract);
-            
+
         }
 
         async void _attractTimer()
@@ -75,10 +114,10 @@ namespace TimeToShineClient.View.ColorSelection
                     {
                         StartAttract();
                     }
-                    
+
                 }
-                
-                counter ++;
+
+                counter++;
             }
         }
 
@@ -237,7 +276,7 @@ namespace TimeToShineClient.View.ColorSelection
             get { return _suburb; }
             set
             {
-                _suburb = value; 
+                _suburb = value;
                 OnPropertyChanged();
             }
         }
@@ -257,7 +296,57 @@ namespace TimeToShineClient.View.ColorSelection
             get { return _colorName; }
             set
             {
-                _colorName = value; 
+                _colorName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool SettingsRunning
+        {
+            get { return _settingsRunning; }
+            set
+            {
+                _settingsRunning = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Broker
+        {
+            get { return _broker; }
+            set
+            {
+                _broker = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Topic
+        {
+            get { return _topic; }
+            set
+            {
+                _topic = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string BaseUrl
+        {
+            get { return _baseUrl; }
+            set
+            {
+                _baseUrl = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string LightIds
+        {
+            get { return _lightIds; }
+            set
+            {
+                _lightIds = value;
                 OnPropertyChanged();
             }
         }

@@ -101,6 +101,9 @@
     <Compile Include="Controls\DataEntryControlView.xaml.cs">
       <DependentUpon>DataEntryControlView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SettingsControlView.xaml.cs">
+      <DependentUpon>SettingsControlView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SubmitControlView.xaml.cs">
       <DependentUpon>SubmitControlView.xaml</DependentUpon>
     </Compile>
@@ -173,6 +176,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\DataEntryControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SettingsControlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

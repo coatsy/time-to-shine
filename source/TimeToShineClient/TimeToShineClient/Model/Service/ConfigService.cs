@@ -15,10 +15,17 @@ namespace TimeToShineClient.Model.Service
         const string SERVCICE_BASE = "SERVCICE_BASE";
         const string MQTT_BROKER = "MQTT_BROKER";
         const string MQTT_TOPIC = "MQTT_TOPIC";
+        const string LIGHTS = "LIGHTS";
 
         public ConfigService(IConfigRepo config)
         {
             _config = config;
+        }
+
+        public string LightIds
+        {
+            get { return _config[LIGHTS]; }
+            set { _config.Write(LIGHTS, value); }
         }
 
         public string ServiceBase

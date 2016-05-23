@@ -18,6 +18,6 @@ namespace TimeToShineClient.Model.Repo
             _localSettings.Values[setting] = value;
         }
 
-        public string this[string index] => _localSettings.Values["index"]?.ToString();
+        public string this[string index] => _localSettings.Values[index]?.ToString();
     }
 }
