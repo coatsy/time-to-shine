@@ -77,5 +77,10 @@ namespace TimeToShineClient.Controls
             await Task.Delay(6000);
             VisualStateManager.GoToState(this, "BackHomeState", true);
         }
+
+        private void Grid_OnPointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }

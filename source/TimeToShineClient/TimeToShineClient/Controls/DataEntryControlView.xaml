@@ -12,7 +12,7 @@
 
     </UserControl.Resources>
 
-    <Grid x:Name="grid"  RenderTransformOrigin="0.5,0.5">
+    <Grid x:Name="grid"  RenderTransformOrigin="0.5,0.5" PointerPressed="Grid_OnPointerPressed">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="ControlStates">
                 

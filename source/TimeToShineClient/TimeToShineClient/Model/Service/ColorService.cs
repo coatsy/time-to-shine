@@ -1,6 +1,8 @@
 ﻿using Windows.UI;
 using TimeToShineClient.Model.Contract;
 using TimeToShineClient.Model.Entity;
+using XamlingCore.Portable.Contract.Downloaders;
+using XamlingCore.Portable.Contract.Repos.Base;
 
 namespace TimeToShineClient.Model.Service
 {
@@ -8,11 +10,16 @@ namespace TimeToShineClient.Model.Service
     {
         private readonly IMQTTService _mqttService;
         private readonly IConfigService _configService;
+        private readonly IXWebRepo<UserColor> _colorsRepo;
 
-        public ColorService(IMQTTService mqttService, IConfigService configService)
+
+        public ColorService(IMQTTService mqttService, 
+            IConfigService configService, 
+            IXWebRepo<UserColor> colorsRepo)
         {
             _mqttService = mqttService;
             _configService = configService;
+            _colorsRepo = colorsRepo;
         }
 
         public void PublishSampleColor(Color c)
@@ -20,6 +27,11 @@ namespace TimeToShineClient.Model.Service
             var colour = Colour.FromColor(c);
             colour.LightIds = _configService.LightIdArray;
             _mqttService.Publish(colour);
+        }
+
+        public async void SaveColorToServer(UserColor c)
+        {
+            var saveResult = await _colorsRepo.Post(c, "UserColors");
         }
     }
 }

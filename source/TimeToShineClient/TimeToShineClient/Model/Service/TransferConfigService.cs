@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using TimeToShineClient.Model.Contract;
 using XamlingCore.Portable.Contract.Config;
 using XamlingCore.Portable.Contract.Downloaders;
 using XamlingCore.Portable.Contract.Network;
@@ -15,43 +16,34 @@ namespace TimeToShineClient.Model.Service
 {
     public class TransferConfigService : HttpTransferConfigServiceBase
     {
-        private readonly IConfig _config;
+        private readonly IConfigService _config;
         
         private readonly IDeviceNetworkStatus _deviceNetworkStatus;
 
-        public TransferConfigService(IConfig config, IDeviceNetworkStatus deviceNetworkStatus)
+        public TransferConfigService(IConfigService config, IDeviceNetworkStatus deviceNetworkStatus)
         {
             _config = config;
            
             _deviceNetworkStatus = deviceNetworkStatus;
         }
 
-        public override async Task<IHttpTransferConfig> GetConfig(string url, string verb)
+        public override async Task<IHttpTransferConfig> GetConfig(string service, string verb)
         {
-            var finalUrl = url;
+            var baseUrl = _config.ServiceBase;
 
-            if (!finalUrl.StartsWith("http"))
-            {
-                finalUrl = _getBaseUrl() + finalUrl;
-            }
+            var url = $"{baseUrl}/{service}";
 
             var config = new StandardHttpConfig
             {
                 Accept = "application/json",
                 IsValid = true,
-                Url = finalUrl,
-                BaseUrl = finalUrl,
+                Url = url,
+                BaseUrl = "",
                 Verb = verb,
                 Headers = new Dictionary<string, string>()
             };
 
             return config;
-        }
-
-        
-        string _getBaseUrl()
-        {
-            return "http://192.168.0.11/testingq1232";
         }
     }
 }

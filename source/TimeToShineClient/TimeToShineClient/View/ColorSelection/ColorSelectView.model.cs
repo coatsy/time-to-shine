@@ -134,8 +134,20 @@ namespace TimeToShineClient.View.ColorSelection
 
         async void _onSave()
         {
-            var s = "here";
+            var c = Brush.Color;
 
+            var uc = new UserColor
+            {
+                Red = c.R,
+                Green = c.G,
+                Blue = c.B,
+                ColorName = ColorName,
+                SubmitterAge = Convert.ToInt32(Age),
+                SubmitterLocation = Suburb,
+                SubmitterName = FirstName
+            };
+
+            _colorService.SaveColorToServer(uc);
 
             await Task.Delay(10000);
 
