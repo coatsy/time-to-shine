@@ -7,5 +7,6 @@
         string MqttTopic { get; set; }
         string LightIds { get; set; }
         int[] LightIdArray { get; }
+        string DMXChannel { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace TimeToShineClient.Model.Service
         const string MQTT_BROKER = "MQTT_BROKER";
         const string MQTT_TOPIC = "MQTT_TOPIC";
         const string LIGHTS = "LIGHTS";
+        const string DMXCHANNEL = "DMXCHANNEL";
 
         public ConfigService(IConfigRepo config)
         {
@@ -42,6 +43,12 @@ namespace TimeToShineClient.Model.Service
         {
             get { return _config[SERVCICE_BASE]; }
             set { _config.Write(SERVCICE_BASE, value); }
+        }
+
+        public string DMXChannel
+        {
+            get { return _config[DMXCHANNEL]; }
+            set { _config.Write(DMXCHANNEL, value); }
         }
 
         public string MqttBroker

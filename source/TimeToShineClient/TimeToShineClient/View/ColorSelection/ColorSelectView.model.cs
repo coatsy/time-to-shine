@@ -50,6 +50,7 @@ namespace TimeToShineClient.View.ColorSelection
         private string _topic;
         private string _baseUrl;
         private string _lightIds;
+        private string _dmxChannel;
 
         int counter = 0;
 
@@ -72,7 +73,7 @@ namespace TimeToShineClient.View.ColorSelection
             _configService.MqttTopic = Topic;
             _configService.ServiceBase = BaseUrl;
             _configService.LightIds = LightIds;
-
+            _configService.DMXChannel = DmxChannel;
             _cancelSettings();
         }
 
@@ -91,6 +92,7 @@ namespace TimeToShineClient.View.ColorSelection
                 Topic = _configService.MqttTopic;
                 BaseUrl = _configService.ServiceBase;
                 LightIds = _configService.LightIds;
+                DmxChannel = _configService.DMXChannel;
                 SettingsRunning = true;
             });
 
@@ -413,6 +415,16 @@ namespace TimeToShineClient.View.ColorSelection
             set
             {
                 _lightIds = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string DmxChannel
+        {
+            get { return _dmxChannel; }
+            set
+            {
+                _dmxChannel = value; 
                 OnPropertyChanged();
             }
         }
