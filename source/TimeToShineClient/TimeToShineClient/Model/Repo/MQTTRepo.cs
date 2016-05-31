@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Threading.Tasks;
 using TimeToShineClient.Model.Contract;
 using TimeToShineClient.Model.Entity;
 using uPLibrary.Networking.M2Mqtt;
+using XamlingCore.Portable.Util.Lock;
+using XamlingCore.Portable.Util.TaskUtils;
 
 namespace TimeToShineClient.Model.Repo
 {
@@ -11,6 +14,8 @@ namespace TimeToShineClient.Model.Repo
         private string _mqttTopic = "msstore/vivid/light/";
         private string _dmxChannel = "1";
         MqttClient client;
+
+        XAsyncLock _taskLock = new XAsyncLock();
 
         public MQTTService(IConfigService configService)
         {
@@ -50,8 +55,34 @@ namespace TimeToShineClient.Model.Repo
             
         }
 
-        public void Publish(Colour colour)
+        async Task _lockConnect()
         {
+            using (var l = await _taskLock.LockAsync())
+            {
+                if (client.IsConnected)
+                {
+                    return;
+                }
+                try
+                {
+                    client.Connect(Guid.NewGuid().ToString().Substring(0, 20));
+                }
+                catch
+                {
+                }
+
+            }
+            
+        }
+
+        public async Task Publish(Colour colour)
+        {
+            if (!client.IsConnected)
+            {
+                await _lockConnect();
+
+            }
+
             try
             {
                 client.Publish($"{_mqttTopic}{_dmxChannel}", colour.ToJson());
