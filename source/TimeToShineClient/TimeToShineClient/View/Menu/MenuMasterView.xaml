@@ -22,7 +22,7 @@
             </StackPanel>
         </StackPanel>
         
-        <Image Source="/Assets/Microsoft_logo_(2012).svg.png" VerticalAlignment="Bottom" Margin="25,25,25,25"></Image>
+        
     </Grid>
 </view:XPage>
 
