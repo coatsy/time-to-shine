@@ -41,7 +41,7 @@ namespace TimeToShineClient.Model.Service
 
         public string ServiceBase
         {
-            get { return _config[SERVCICE_BASE]; }
+            get { return _config[SERVCICE_BASE] ?? "http://colourlab.azurewebsites.net/api"; }
             set { _config.Write(SERVCICE_BASE, value); }
         }
 
