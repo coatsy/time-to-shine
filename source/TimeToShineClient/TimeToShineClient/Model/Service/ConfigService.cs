@@ -47,7 +47,7 @@ namespace TimeToShineClient.Model.Service
 
         public string DMXChannel
         {
-            get { return _config[DMXCHANNEL]; }
+            get { return _config[DMXCHANNEL] ?? "1"; }
             set { _config.Write(DMXCHANNEL, value); }
         }
 

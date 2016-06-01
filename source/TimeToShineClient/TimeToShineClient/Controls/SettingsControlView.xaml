@@ -18,7 +18,7 @@
             <TextBlock Text="Base URL"></TextBlock>
             <TextBox Text="{Binding BaseUrl, Mode=TwoWay}"></TextBox>
             <TextBlock Text="Dmx Channel"></TextBlock>
-            <TextBox Text="{Binding DmxChanel, Mode=TwoWay}"></TextBox>
+            <TextBox Text="{Binding DmxChannel, Mode=TwoWay}"></TextBox>
             <TextBlock Text="Light Ids (comma separated)"></TextBlock>
             <TextBox Text="{Binding LightIds, Mode=TwoWay}"></TextBox>
             <Button Content="Save" Command="{Binding SaveSettingsCommand}"></Button>

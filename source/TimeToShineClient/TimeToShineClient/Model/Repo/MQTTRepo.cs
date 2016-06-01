@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using TimeToShineClient.Model.Contract;
 using TimeToShineClient.Model.Entity;
@@ -56,13 +57,13 @@ namespace TimeToShineClient.Model.Repo
                 _config();
                 if (client != null && client.IsConnected)
                 {
-                    await Task.Delay(6000);
+                    await Task.Delay(30000);
                     continue;
                 }
 
                 if (string.IsNullOrWhiteSpace(_configService.MqttBroker))
                 {
-                    await Task.Delay(6000);
+                    await Task.Delay(30000);
                     continue;
                 }
 
@@ -71,9 +72,18 @@ namespace TimeToShineClient.Model.Repo
                     client = new MqttClient(_configService.MqttBroker);
                 }
 
-                client.Connect(Guid.NewGuid().ToString().Substring(0, 20));
+                try
+                {
+                    client.Connect(Guid.NewGuid().ToString().Substring(0, 20));
+                }
+                catch
+                {
+                    
+                }
 
-                await Task.Delay(6000);
+                
+
+                await Task.Delay(30000);
             }
         }
 
@@ -89,7 +99,10 @@ namespace TimeToShineClient.Model.Repo
             
             try
             {
+                var t = DateTime.Now;
+                Debug.WriteLine("Start");
                 client.Publish($"{_mqttTopic}{_dmxChannel}", colour.ToJson());
+                Debug.WriteLine("Stop" + DateTime.Now.Subtract(t).Seconds);
             }
             catch
             {
