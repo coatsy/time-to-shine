@@ -53,13 +53,13 @@ namespace TimeToShineClient.Model.Service
 
         public string MqttBroker
         {
-            get { return _config[MQTT_BROKER] == null ? _config[MQTT_BROKER] : "10.10.11.161"; }
+            get { return _config[MQTT_BROKER] ?? "10.10.11.161"; }
             set { _config.Write(MQTT_BROKER, value); }
         }
 
         public string MqttTopic
         {
-            get { return _config[MQTT_TOPIC] == null ? _config[MQTT_TOPIC] : "msstore/vivid/light/"; }
+            get { return _config[MQTT_TOPIC] ?? "msstore/vivid/light/"; }
             set { _config.Write(MQTT_TOPIC, value); }
         }
     }
