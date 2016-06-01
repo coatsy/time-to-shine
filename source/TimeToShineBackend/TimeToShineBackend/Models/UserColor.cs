@@ -10,7 +10,7 @@ namespace TimeToShineBackend.Models
         public DateTime? Submitted { get; set; }
 
         public string SubmitterName { get; set; }
-        public int SubmitterAge { get; set; }
+        public int? SubmitterAge { get; set; }
         public string SubmitterLocation { get; set; }
 
         public int Red { get; set; }
