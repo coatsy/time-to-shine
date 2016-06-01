@@ -144,8 +144,6 @@ namespace TimeToShineClient.View.ColorSelection
                 Green = c.G,
                 Blue = c.B,
                 ColorName = ColorName,
-                SubmitterAge = Convert.ToInt32(Age),
-                SubmitterLocation = Suburb,
                 SubmitterName = FirstName
             };
 
@@ -188,28 +186,28 @@ namespace TimeToShineClient.View.ColorSelection
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(Age))
+            //if (string.IsNullOrWhiteSpace(Age))
 
-            {
-                _showError("Beep bop! Hrm - I cannot detect how old you are, can you help me out by entering your age?");
-                return false;
-            }
+            //{
+            //    _showError("Beep bop! Hrm - I cannot detect how old you are, can you help me out by entering your age?");
+            //    return false;
+            //}
 
-            try
-            {
-                var intAge = Convert.ToInt32(Age);
-            }
-            catch
-            {
-                _showError("Boom! The age you entered isn't really actually an age. It's like - some other thing. Enter Real age plz!");
-                return false;
-            }
+            //try
+            //{
+            //    var intAge = Convert.ToInt32(Age);
+            //}
+            //catch
+            //{
+            //    _showError("Boom! The age you entered isn't really actually an age. It's like - some other thing. Enter Real age plz!");
+            //    return false;
+            //}
 
-            if (string.IsNullOrWhiteSpace(Suburb))
-            {
-                _showError("We know where you live. Oh wait... no we don't. Can you please enter your suburb?");
-                return false;
-            }
+            //if (string.IsNullOrWhiteSpace(Suburb))
+            //{
+            //    _showError("We know where you live. Oh wait... no we don't. Can you please enter your suburb?");
+            //    return false;
+            //}
 
             return true;
         }
