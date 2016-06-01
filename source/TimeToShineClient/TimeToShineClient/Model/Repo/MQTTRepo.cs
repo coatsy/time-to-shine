@@ -10,6 +10,7 @@ namespace TimeToShineClient.Model.Repo
 {
     public class MQTTService : IMQTTService
     {
+        private readonly IConfigService _configService;
         //const string MqttBroker = "27.33.31.102";
         private string _mqttTopic = "msstore/vivid/light/";
         private string _dmxChannel = "1";
@@ -19,12 +20,15 @@ namespace TimeToShineClient.Model.Repo
 
         public MQTTService(IConfigService configService)
         {
-            if (string.IsNullOrWhiteSpace(configService.MqttBroker))
-            {
-                return;
-            }
+            _configService = configService;
 
-            var dChannel = configService.DMXChannel;
+            _config();
+            _queueManagement();
+        }
+
+        void _config()
+        {
+            var dChannel = _configService.DMXChannel;
 
             if (string.IsNullOrWhiteSpace(dChannel))
             {
@@ -35,63 +39,61 @@ namespace TimeToShineClient.Model.Repo
                 _dmxChannel = dChannel;
             }
 
-            client = new MqttClient(configService.MqttBroker);
-
-            _mqttTopic = configService.MqttTopic;
+            _mqttTopic = _configService.MqttTopic;
 
             if (_mqttTopic == null)
             {
-                configService.MqttTopic = "msstore/vivid/light/";
-                _mqttTopic = configService.MqttTopic;
+                _configService.MqttTopic = "msstore/vivid/light/";
+                _mqttTopic = _configService.MqttTopic;
             }
-            try
-            {
-                client.Connect(Guid.NewGuid().ToString().Substring(0, 20));
-            }
-            catch
-            {
-                
-            }
-            
         }
 
-        async Task _lockConnect()
+
+        async void _queueManagement()
         {
-            using (var l = await _taskLock.LockAsync())
+            while (true)
             {
-                if (client.IsConnected)
+                _config();
+                if (client != null && client.IsConnected)
                 {
-                    return;
-                }
-                try
-                {
-                    client.Connect(Guid.NewGuid().ToString().Substring(0, 20));
-                }
-                catch
-                {
+                    await Task.Delay(6000);
+                    continue;
                 }
 
+                if (string.IsNullOrWhiteSpace(_configService.MqttBroker))
+                {
+                    await Task.Delay(6000);
+                    continue;
+                }
+
+                if (client == null)
+                {
+                    client = new MqttClient(_configService.MqttBroker);
+                }
+
+                client.Connect(Guid.NewGuid().ToString().Substring(0, 20));
+
+                await Task.Delay(6000);
             }
-            
         }
+
+        private bool _isConnected => client != null && client.IsConnected;
+        
 
         public async Task Publish(Colour colour)
         {
-            if (!client.IsConnected)
+            if (!_isConnected)
             {
-                await _lockConnect();
-
+                return;
             }
-
+            
             try
             {
                 client.Publish($"{_mqttTopic}{_dmxChannel}", colour.ToJson());
             }
             catch
             {
-                
             }
-            
         }
     }
 }
