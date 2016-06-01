@@ -53,7 +53,7 @@ namespace TimeToShineClient.Model.Service
 
         public string MqttBroker
         {
-            get { return _config[MQTT_BROKER] == null ? _config[MQTT_BROKER] : "RPiDMX02"; }
+            get { return _config[MQTT_BROKER] == null ? _config[MQTT_BROKER] : "10.10.11.161"; }
             set { _config.Write(MQTT_BROKER, value); }
         }
 
