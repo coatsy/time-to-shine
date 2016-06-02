@@ -46,9 +46,9 @@ namespace TimeToShineClient.View.ColorSelection
 
 
             var hue = (float)(py * 360f / this.colorSpectrum.ActualHeight);
-            var bright = (float)(px * 1f / this.colorSpectrum.ActualWidth);
+            var bright = (float)((px/2) * 1f / this.colorSpectrum.ActualWidth) + .5f;
 
-           // Debug.WriteLine($"hue: {hue}, bright: {bright}");
+            Debug.WriteLine($"hue: {hue}, bright: {bright}");
 
             var h = ColorUtils.FromHsv(hue, 1f, bright);
 
