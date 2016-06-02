@@ -84,7 +84,18 @@ namespace TimeToShineClient.Model.Repo
                     new DebugMessage("Connecting to client").Send();
                     await Task.Delay(500);
                     var g = Guid.NewGuid().ToString().Substring(0, 20);
-                    client.Connect(g);
+                    await Task.Run(() =>
+                    {
+                        try
+                        {
+                            client.Connect(Guid.NewGuid().ToString().Substring(0, 20));
+                        }
+                        catch (Exception ex)
+                        {
+                            new DebugMessage($"Failed connection to client: exception: {ex.Message}").Send();
+                        }
+
+                    });
                 }
                 catch(Exception ex)
                 {
