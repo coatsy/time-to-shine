@@ -51,6 +51,9 @@ namespace TimeToShineClient.View.ColorSelection
         private string _baseUrl;
         private string _lightIds;
         private string _dmxChannel;
+        private bool _debugMode;
+
+        private string _debugText;
 
         int counter = 0;
 
@@ -65,6 +68,25 @@ namespace TimeToShineClient.View.ColorSelection
             _attractTimer();
             this.Register<ResetMessage>(_onReset);
             this.Register<SettingsMessage>(_onSettings);
+            this.Register<DebugMessage>(_onDebugMessage);
+        }
+
+        void _onDebugMessage(object message)
+        {
+            var m = message as DebugMessage;
+
+            if (m == null)
+            {
+                return;
+            }
+            Dispatcher.Invoke(() =>
+            {
+                DebugText += $"\r\n{m.Message}";
+            });
+        
+
+       
+
         }
 
         void _saveSettings()
@@ -423,6 +445,26 @@ namespace TimeToShineClient.View.ColorSelection
             set
             {
                 _dmxChannel = value; 
+                OnPropertyChanged();
+            }
+        }
+
+        public bool DebugMode
+        {
+            get { return _debugMode; }
+            set
+            {
+                _debugMode = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string DebugText
+        {
+            get { return _debugText; }
+            set
+            {
+                _debugText = value; 
                 OnPropertyChanged();
             }
         }

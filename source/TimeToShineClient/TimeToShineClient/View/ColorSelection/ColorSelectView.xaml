@@ -11,7 +11,12 @@
 
     <Grid Background="{x:Bind ViewModel.Brush, Mode=OneWay}" 
           PointerPressed="UIElement_OnPointerPressed" x:Name="colorSpectrum">
-       
+
+        <controls:DebugModeView
+            Visibility="{x:Bind ViewModel.DebugMode, Converter={StaticResource Bool2VisConverter}, Mode=OneWay}" 
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Right" Width="600" Height="600" />
+
         <controls:ExplainerControlView
             Visibility="{x:Bind ViewModel.AttractRunning, Converter={StaticResource Bool2VisConverter}, Mode=OneWay}" 
             VerticalAlignment="Center" 

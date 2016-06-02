@@ -105,6 +105,9 @@
     <Compile Include="Controls\DataEntryControlView.xaml.cs">
       <DependentUpon>DataEntryControlView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\DebugModeView.xaml.cs">
+      <DependentUpon>DebugModeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SettingsControlView.xaml.cs">
       <DependentUpon>SettingsControlView.xaml</DependentUpon>
     </Compile>
@@ -117,6 +120,7 @@
     <Compile Include="Glue\ProjectGlue.cs" />
     <Compile Include="Model\Contract\IMQTTService.cs" />
     <Compile Include="Model\Entity\UserColor.cs" />
+    <Compile Include="Model\Messages\DebugMessage.cs" />
     <Compile Include="Model\Messages\ResetMessage.cs" />
     <Compile Include="Model\Messages\SettingsMessage.cs" />
     <Compile Include="Model\Repo\ConfigRepo.cs" />
@@ -180,6 +184,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\DataEntryControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DebugModeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
