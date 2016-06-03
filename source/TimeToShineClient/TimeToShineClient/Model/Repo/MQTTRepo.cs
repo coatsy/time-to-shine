@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using TimeToShineClient.Model.Contract;
 using TimeToShineClient.Model.Entity;
@@ -18,14 +19,16 @@ namespace TimeToShineClient.Model.Repo
         private string _mqttTopic = "msstore/vivid/light/";
         private string _dmxChannel = "1";
         MqttClient client;
+        Timer connectionTimer;
+        bool checkingConnection = false;
 
         XAsyncLock _taskLock = new XAsyncLock();
 
         public MQTTService(IConfigService configService)
         {
             _configService = configService;
-            
-            _queueManagement();
+
+            connectionTimer = new Timer(new TimerCallback(_queueManagement), null, 500, 2000);
         }
 
         void _config()
@@ -51,63 +54,54 @@ namespace TimeToShineClient.Model.Repo
         }
 
 
-        async void _queueManagement()
+        void _queueManagement(object state)
         {
-            while (true)
+            if (checkingConnection) { return; }
+            checkingConnection = true;
+
+            _config();
+
+            if (client != null && client.IsConnected)
             {
-                await Task.Delay(10000);
-                _config();
+                new DebugMessage("Broker test - connected.").Send();
+                checkingConnection = false;
+                return;
+            }
 
-                if (client != null && client.IsConnected)
-                {
-                    new DebugMessage("Broker test - connected.").Send();
-                    await Task.Delay(30000);
-                    continue;
-                }
+            if (string.IsNullOrWhiteSpace(_configService.MqttBroker))
+            {
+                new DebugMessage("Broker test - no broker set").Send();
+                checkingConnection = false;
+                return;
+            }
 
-                if (string.IsNullOrWhiteSpace(_configService.MqttBroker))
-                {
-                    new DebugMessage("Broker test - no broker set").Send();
-                    await Task.Delay(30000);
-                    continue;
-                }
-
+            try
+            {
                 if (client == null)
                 {
                     new DebugMessage($"Creating new client from null - broker {_configService.MqttBroker}").Send();
-                    await Task.Delay(500);
                     client = new MqttClient(_configService.MqttBroker);
                 }
 
-                try
-                {
-                    new DebugMessage("Connecting to client").Send();
-                    await Task.Delay(500);
-                    var g = Guid.NewGuid().ToString().Substring(0, 20);
-                    await Task.Run(() =>
-                    {
-                        try
-                        {
-                            client.Connect(Guid.NewGuid().ToString().Substring(0, 20));
-                        }
-                        catch (Exception ex)
-                        {
-                            new DebugMessage($"Failed connection to client: exception: {ex.Message}").Send();
-                        }
+                new DebugMessage("Connecting to client").Send();
 
-                    });
-                }
-                catch(Exception ex)
-                {
-                    new DebugMessage($"Failed connection to client: exception: {ex.Message}").Send();
-                }
-
-                await Task.Delay(30000);
+                client.Connect(Guid.NewGuid().ToString().Substring(0, 20));
             }
+            catch (Exception ex)
+            {
+                new DebugMessage($"Failed connection to client: exception: {ex.Message}").Send();
+            }
+            finally
+            {
+                checkingConnection = false;
+            }
+
+            checkingConnection = false;
+
         }
 
         private bool _isConnected => client != null && client.IsConnected;
-        
+
 
         public async Task Publish(Colour colour)
         {
@@ -116,7 +110,7 @@ namespace TimeToShineClient.Model.Repo
                 new DebugMessage("Could not publish, client not connected").Send();
                 return;
             }
-            
+
             try
             {
                 var json = colour.ToJson();
@@ -127,7 +121,7 @@ namespace TimeToShineClient.Model.Repo
                 new DebugMessage($"Send result: {result}").Send();
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 new DebugMessage($"Failed to send to client {ex.Message}").Send();
             }
