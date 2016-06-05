@@ -26,7 +26,7 @@ namespace TimeToShineClient.Model.Repo
         {
             _configService = configService;
 
-            _publish();
+            Task.Run(new Action(_publish));
         }
 
         void _config()
