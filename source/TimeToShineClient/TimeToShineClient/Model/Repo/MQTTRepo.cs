@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TimeToShineClient.Model.Contract;
 using TimeToShineClient.Model.Entity;
@@ -17,9 +18,9 @@ namespace TimeToShineClient.Model.Repo
         private string _dmxChannel = "1";
         MqttClient client;
         Colour latestColour = new Colour();
-        bool colourUpdated = false;
         int sentCount = 0;
         const int publishCycleTime = 200;
+        AutoResetEvent publishEvent = new AutoResetEvent(false);
 
 
         public MQTTService(IConfigService configService)
@@ -57,9 +58,7 @@ namespace TimeToShineClient.Model.Repo
             while (true)
             {
                 await Task.Delay(publishCycleTime);
-
-                if (!colourUpdated) { continue; } // no new colour so continue
-                colourUpdated = false; // reset new colour flag
+                publishEvent.WaitOne();
 
                 if (client == null || !client.IsConnected)
                 {
@@ -122,7 +121,7 @@ namespace TimeToShineClient.Model.Repo
             latestColour.Blue = colour.Blue;
             latestColour.White = colour.White;
 
-            colourUpdated = true;
+            publishEvent.Set();
 
             return;
         }
