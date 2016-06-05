@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TimeToShineClient.Model.Contract;
@@ -20,7 +21,10 @@ namespace TimeToShineClient.Model.Repo
         private string _dmxChannel = "1";
         MqttClient client;
         Timer connectionTimer;
-        bool checkingConnection = false;
+        bool publishing = false;
+        Colour latestColour = new Colour();
+        bool colourUpdated = false;
+        int sentCount = 0;
 
         XAsyncLock _taskLock = new XAsyncLock();
 
@@ -28,7 +32,7 @@ namespace TimeToShineClient.Model.Repo
         {
             _configService = configService;
 
-            connectionTimer = new Timer(new TimerCallback(_queueManagement), null, 500, 2000);
+            connectionTimer = new Timer(new TimerCallback(_publish), null, 500, 250);
         }
 
         void _config()
@@ -54,67 +58,50 @@ namespace TimeToShineClient.Model.Repo
         }
 
 
-        void _queueManagement(object state)
+        void _publish(object state)
         {
-            if (checkingConnection) { return; }
-            checkingConnection = true;
+            if (!colourUpdated) { return; } // no new colour so return
+            colourUpdated = false; // reset new colour flag
 
-            _config();
+            if (publishing) { return; } // already publishing something so return
+            publishing = true;
 
-            if (client != null && client.IsConnected)
+            if (client == null || !client.IsConnected)
             {
-                new DebugMessage("Broker test - connected.").Send();
-                checkingConnection = false;
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(_configService.MqttBroker))
-            {
-                new DebugMessage("Broker test - no broker set").Send();
-                checkingConnection = false;
-                return;
-            }
-
-            try
-            {
-                if (client == null)
+                try
                 {
-                    new DebugMessage($"Creating new client from null - broker {_configService.MqttBroker}").Send();
-                    client = new MqttClient(_configService.MqttBroker);
+                    if (client == null)
+                    {
+                        new DebugMessage($"Creating new client from null - broker {_configService.MqttBroker}").Send();
+                        client = new MqttClient(_configService.MqttBroker);
+                    }
+
+                    new DebugMessage("Connecting to client").Send();
+
+                    client.Connect(Guid.NewGuid().ToString().Substring(0, 20));
+                    
                 }
-
-                new DebugMessage("Connecting to client").Send();
-
-                client.Connect(Guid.NewGuid().ToString().Substring(0, 20));
-            }
-            catch (Exception ex)
-            {
-                new DebugMessage($"Failed connection to client: exception: {ex.Message}").Send();
-            }
-            finally
-            {
-                checkingConnection = false;
+                catch (Exception ex)
+                {
+                    new DebugMessage($"Failed connection to client: exception: {ex.Message}").Send();
+                }
             }
 
-            checkingConnection = false;
-
-        }
-
-        private bool _isConnected => client != null && client.IsConnected;
-
-
-        public async Task Publish(Colour colour)
-        {
-            if (!_isConnected)
+            if (!client.IsConnected)
             {
-                new DebugMessage("Could not publish, client not connected").Send();
+                publishing = false;
                 return;
             }
 
+
             try
             {
-                var json = colour.ToJson();
-                new DebugMessage($"Sending: Topic: {_mqttTopic}, dmx: {_dmxChannel}, message: {json}").Send();
+                latestColour.MsgId = sentCount++;
+                latestColour.LightId = _configService.LightIdArray;
+
+                var json = latestColour.ToJson();
+
+                new DebugMessage($"Sending: Topic: {_mqttTopic}, dmx: {_dmxChannel}, Light Id: {Encoding.ASCII.GetString(json)}").Send();
 
                 var result = client.Publish($"{_mqttTopic}{_dmxChannel}", json);
 
@@ -125,6 +112,25 @@ namespace TimeToShineClient.Model.Repo
             {
                 new DebugMessage($"Failed to send to client {ex.Message}").Send();
             }
+
+
+            publishing = false;
+
+        }
+
+        private bool _isConnected => client != null && client.IsConnected;
+
+
+        public void Publish(Colour colour)
+        {
+            latestColour.Red = colour.Red;
+            latestColour.Green = colour.Green;
+            latestColour.Blue = colour.Blue;
+            latestColour.White = colour.White;
+
+            colourUpdated = true;
+
+            return;
         }
     }
 }

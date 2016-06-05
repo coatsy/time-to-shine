@@ -5,6 +5,6 @@ namespace TimeToShineClient.Model.Contract
 {
     public interface IMQTTService
     {
-        Task Publish(Colour colour);
+        void Publish(Colour colour);
     }
 }
