@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using TimeToShineClient.Model.Contract;
 using TimeToShineClient.Model.Entity;
 using TimeToShineClient.Model.Messages;
 using uPLibrary.Networking.M2Mqtt;
 using XamlingCore.Portable.Messages.XamlingMessenger;
-using XamlingCore.Portable.Util.Lock;
-using XamlingCore.Portable.Util.TaskUtils;
 
 namespace TimeToShineClient.Model.Repo
 {
@@ -20,19 +16,18 @@ namespace TimeToShineClient.Model.Repo
         private string _mqttTopic = "msstore/vivid/light/";
         private string _dmxChannel = "1";
         MqttClient client;
-        Timer connectionTimer;
+        Timer publishTimer;
         bool publishing = false;
         Colour latestColour = new Colour();
         bool colourUpdated = false;
         int sentCount = 0;
 
-        XAsyncLock _taskLock = new XAsyncLock();
 
         public MQTTService(IConfigService configService)
         {
             _configService = configService;
 
-            connectionTimer = new Timer(new TimerCallback(_publish), null, 500, 250);
+            publishTimer = new Timer(new TimerCallback(_publish), null, 500, 250);
         }
 
         void _config()
@@ -63,6 +58,7 @@ namespace TimeToShineClient.Model.Repo
             if (!colourUpdated) { return; } // no new colour so return
             colourUpdated = false; // reset new colour flag
 
+
             if (publishing) { return; } // already publishing something so return
             publishing = true;
 
@@ -79,7 +75,7 @@ namespace TimeToShineClient.Model.Repo
                     new DebugMessage("Connecting to client").Send();
 
                     client.Connect(Guid.NewGuid().ToString().Substring(0, 20));
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -99,6 +95,7 @@ namespace TimeToShineClient.Model.Repo
                 latestColour.MsgId = sentCount++;
                 latestColour.LightId = _configService.LightIdArray;
 
+
                 var json = latestColour.ToJson();
 
                 new DebugMessage($"Sending: Topic: {_mqttTopic}, dmx: {_dmxChannel}, Light Id: {Encoding.ASCII.GetString(json)}").Send();
@@ -115,7 +112,6 @@ namespace TimeToShineClient.Model.Repo
 
 
             publishing = false;
-
         }
 
         private bool _isConnected => client != null && client.IsConnected;
@@ -123,6 +119,9 @@ namespace TimeToShineClient.Model.Repo
 
         public void Publish(Colour colour)
         {
+            if (colour.Red == latestColour.Red && colour.Green == latestColour.Green &&
+                colour.Blue == latestColour.Blue && colour.White == latestColour.White) { return; }
+
             latestColour.Red = colour.Red;
             latestColour.Green = colour.Green;
             latestColour.Blue = colour.Blue;
