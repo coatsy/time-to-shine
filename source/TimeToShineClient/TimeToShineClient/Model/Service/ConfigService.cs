@@ -53,7 +53,7 @@ namespace TimeToShineClient.Model.Service
 
         public string MqttBroker
         {
-            get { return _config[MQTT_BROKER] ?? "10.10.11.161"; }
+            get { return _config[MQTT_BROKER] ?? "13.75.145.18"; }
             set { _config.Write(MQTT_BROKER, value); }
         }
 
