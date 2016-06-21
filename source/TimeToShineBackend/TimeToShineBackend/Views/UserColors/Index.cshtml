@@ -38,6 +38,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Blue)
         </th>
+        <th>color</th>
         <th></th>
     </tr>
 
@@ -69,6 +70,8 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Blue)
+        </td>
+        <td style="background: rgb(@{ @item.Red }, @{@item.Green}, @{ @item.Blue} ); background-color:rgb(@{ @item.Red }, @{@item.Green}, @{ @item.Blue} ); ">
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
